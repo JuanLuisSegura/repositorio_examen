@@ -1,0 +1,9 @@
+function recorrerCadenaEvolucion(cadena) {
+    let array1 = []
+    array1.push(cadena.species)
+    while (cadena.evolves_to.length !== 0) {
+        cadena.evolves_to.forEach(element => array1.push(element.species))
+        cadena = cadena.evolves_to[0]
+    }
+    return array1
+}
