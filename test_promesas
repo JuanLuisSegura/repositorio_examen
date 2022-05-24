@@ -1,0 +1,37 @@
+function banana() {
+  return Promise.resolve('banana')
+}
+
+function papaya() {
+  return new Promise((resolve, reject) => {
+    setTimeout(
+      () => resolve('papaya'),
+      100
+    );
+  })
+
+}
+
+function mango() {
+  // Ignoring you...
+  return new Promise((resolve, reject) => { /* Ignoring you */ })
+}
+
+jest.setTimeout(1000)
+
+it('tests returning the promise', () => {
+  // The important part here is "return": we must return the promise
+  return banana().then(value => {
+    expect(value).toBe('banana')
+  })
+});
+
+it('tests with resolves', () => {
+  // We MUST return the expect
+  return expect(papaya()).resolves.toBe('papaya');
+});
+
+// This should fail with a timeout
+it('this should fail', () => {
+  return expect(mango()).resolves.toBe('papaya');
+});
